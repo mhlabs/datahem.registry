@@ -30,11 +30,11 @@ public class RegistryLoader {
 					try{
 						cache.addSchema(new Schema.Parser().parse(new String(Files.readAllBytes(path), StandardCharsets.UTF_8)));
 					}catch(Exception e){
-						e.printStackTrace();
+						LOG.error(e.toString());
 					}
 				});
 		} catch(Exception e){
-			e.printStackTrace();
+			LOG.error(e.toString());
 		}
 	}
 }
