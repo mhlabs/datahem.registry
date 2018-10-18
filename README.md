@@ -2,7 +2,7 @@
 A registry for avro schemas, running on google datastore
 
 # Version:
-## 0.7.7 (2018-10-18): Error logging patch
+## 0.7.4 (2018-10-18): Error logging patch
 Added logging of errors in registryloader
 
 ## 0.7.3 (2018-10-18): Logging
