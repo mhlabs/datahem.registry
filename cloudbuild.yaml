@@ -1,7 +1,9 @@
 steps:
-#- name: 'gcr.io/cloud-builders/mvn'
-#  args: ['compile', 'exec:java', '-Dexec.mainClass="org.datahem.registry.RegistryLoader"', '-f datahem.registry/pom.xml']
-#- name: 'gcr.io/cloud-builders/docker'
-#  args: ["ls"]
 - name: 'ubuntu'
   args: ["ls"]
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['install']
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['compile', 'exec:java', '-Dexec.mainClass="org.datahem.registry.RegistryLoader"']
+#- name: 'gcr.io/cloud-builders/docker'
+#  args: ["ls"]
