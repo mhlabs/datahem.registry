@@ -3,8 +3,8 @@ steps:
   args: ["ls"]
 #- name: 'gcr.io/cloud-builders/mvn'
 #  args: ['-v']
-#- name: 'gcr.io/cloud-builders/mvn'
-#  args: ['install']
+- name: 'gcr.io/cloud-builders/mvn'
+  args: ['install']
 - name: 'gcr.io/cloud-builders/mvn'
   args: ['compile', 'exec:java', '-Dexec.mainClass="org.datahem.registry.RegistryLoader"']
 #- name: 'gcr.io/cloud-builders/docker'
