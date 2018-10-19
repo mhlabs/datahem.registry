@@ -2,6 +2,9 @@
 A registry for avro schemas, running on google datastore
 
 # Version:
+## 0.7.5 (2018-10-19): Cloud Build and schema path
+Added cloudbuild.yaml. Added path as field to datastore.
+
 ## 0.7.4 (2018-10-18): Error logging patch
 Added logging of errors in registryloader
 
