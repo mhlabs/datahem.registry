@@ -28,7 +28,7 @@ public class RegistryLoader {
 				.filter(path -> path.toString().endsWith(".avsc"))
 				.forEach(path -> {
 					try{
-						cache.addSchema(new Schema.Parser().parse(new String(Files.readAllBytes(path), StandardCharsets.UTF_8)));
+						cache.addSchema(new Schema.Parser().parse(new String(Files.readAllBytes(path), StandardCharsets.UTF_8)), path.toString().substring(path.toString().indexOf("schemas")));
 					}catch(Exception e){
 						LOG.error(e.toString());
 					}
