@@ -49,11 +49,16 @@ public class DatastoreCache implements SchemaStore {
 	*
 	* @param schema a {@link Schema}
 	*/
+	
 	public void addSchema(Schema schema) {
+		addSchema(schema, null);
+	}
+	
+	public void addSchema(Schema schema, String path) {
 		long fingerprint = SchemaNormalization.parsingFingerprint64(schema);
 		LOG.info("SchemaStore addSchema: " + Long.toString(fingerprint) + " : " + schema.toString());
 		schemas.put(fingerprint, schema);
-		addSchemaToDatastore(fingerprint, schema);
+		addSchemaToDatastore(fingerprint, schema, path);
 	}
 
 	@Override
@@ -70,7 +75,7 @@ public class DatastoreCache implements SchemaStore {
 		return null;
 	}
 
-	public void addSchemaToDatastore(long fingerprint, Schema s){
+	public void addSchemaToDatastore(long fingerprint, Schema s, String path){
 		Datastore datastore = DatastoreOptions.getDefaultInstance().getService();
 		Key schemaKey = datastore.newKeyFactory().setKind("Schema").newKey(Long.toString(fingerprint));
 		Entity schema = Entity.newBuilder(schemaKey)
@@ -78,6 +83,7 @@ public class DatastoreCache implements SchemaStore {
 			.set("name", s.getName())
 			.set("namespace", s.getNamespace())
 			.set("json", s.toString())
+			.set("path", path)
 			.build();
 		datastore.put(schema);
 	}
