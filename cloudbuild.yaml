@@ -6,7 +6,8 @@ steps:
 #- name: 'gcr.io/cloud-builders/mvn'
 #  args: ['install']
 - name: 'gcr.io/cloud-builders/mvn'
-  args: ['package']
-#  args: ['package', 'exec:java', '-Dexec.mainClass="org.datahem.registry.RegistryLoader"']
+#  args: ['package']
+#  args: [java -jar target/registry-0.7.5.jar.jar']
+  args: ['package', 'exec:java', '-Dexec.mainClass="org.datahem.registry.RegistryLoader"']
 #- name: 'gcr.io/cloud-builders/docker'
 #  args: ["ls"]

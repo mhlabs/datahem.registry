@@ -36,17 +36,18 @@ import java.util.stream.Collectors;
 import java.nio.charset.StandardCharsets;
 import org.apache.avro.Schema;
 import org.datahem.registry.DatastoreCache;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+//import org.slf4j.Logger;
+//import org.slf4j.LoggerFactory;
 
 //mvn compile exec:java -Dexec.mainClass="org.datahem.registry.RegistryLoader"
 public class RegistryLoader {
-	private static final Logger LOG = LoggerFactory.getLogger(RegistryLoader.class);
-	
+	//private static final Logger LOG = LoggerFactory.getLogger(RegistryLoader.class);
 	public static void main(String[] args) {
+		System.out.println("run");
 		DatastoreCache cache = new DatastoreCache();
 		RegistryLoader registryLoader = new RegistryLoader();
 		try {
+			System.out.println("try");
 			ClassLoader classLoader = registryLoader.getClass().getClassLoader();
 			Path configFilePath = Paths.get(classLoader.getResource("schemas").toURI());
 			Files.walk(configFilePath)
@@ -56,11 +57,14 @@ public class RegistryLoader {
 					try{
 						cache.addSchema(new Schema.Parser().parse(new String(Files.readAllBytes(path), StandardCharsets.UTF_8)), path.toString().substring(path.toString().indexOf("schemas")));
 					}catch(Exception e){
-						LOG.error(e.toString());
+//						LOG.error(e.toString());
+						System.out.println("error1: " + e.toString());
 					}
 				});
 		} catch(Exception e){
-			LOG.error(e.toString());
+//			LOG.error(e.toString());
+			System.out.println("error2: " + e.toString());
 		}
+		System.out.println("Hello");
 	}
 }
