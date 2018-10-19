@@ -73,6 +73,14 @@
       <!-- When loaded at runtime this will wire up slf4j to the JUL backend -->
       <scope>runtime</scope>
     </dependency>
+    
+    <!-- https://mvnrepository.com/artifact/org.apache.maven.doxia/doxia-sink-api -->
+<dependency>
+    <groupId>org.apache.maven.doxia</groupId>
+    <artifactId>doxia-sink-api</artifactId>
+    <version>1.1.1</version>
+</dependency>
+
 
   </dependencies>
 
