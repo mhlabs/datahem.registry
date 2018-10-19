@@ -7,6 +7,146 @@
   
   <packaging>jar</packaging>
   <name>datahem.registry</name>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.6.1</version>
+        <configuration>
+			<source>${java.version}</source>
+			<target>${java.version}</target>
+		</configuration>
+      </plugin>
+
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>${surefire-plugin.version}</version>
+        <configuration>
+          <parallel>all</parallel>
+          <threadCount>4</threadCount>
+          <redirectTestOutputToFile>true</redirectTestOutputToFile>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>org.apache.maven.surefire</groupId>
+            <artifactId>surefire-junit47</artifactId>
+            <version>${surefire-plugin.version}</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+
+
+      <!-- Ensure that the Maven jar plugin runs before the Maven
+        shade plugin by listing the plugin higher within the file. -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+      </plugin>
+
+      <!--
+        Configures `mvn package` to produce a bundled jar ("fat jar") for runners
+        that require this for job submission to a cluster.
+      -->
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>${project.artifactId}-bundled-${project.version}</finalName>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>META-INF/LICENSE</exclude>
+                    <exclude>META-INF/*.SF</exclude>
+                    <exclude>META-INF/*.DSA</exclude>
+                    <exclude>META-INF/*.RSA</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      
+      <!-- License information -->
+      
+    
+    <plugin>
+        	<groupId>org.codehaus.mojo</groupId>
+        	<artifactId>license-maven-plugin</artifactId>
+        	<version>1.15</version>
+        	<configuration>
+          		<verbose>false</verbose>
+          		<processStartTag>========================LICENSE_START=================================</processStartTag>
+				<processEndTag>=========================LICENSE_END==================================</processEndTag>
+        	</configuration>
+        	<executions>
+        		<execution>
+            		<id>first</id>
+            		<goals>
+              			<goal>update-project-license</goal>
+            		</goals>
+            		<phase>process-sources</phase>
+          		</execution>
+				<execution>
+            		<id>second</id>
+            		<goals>
+              			<goal>update-file-header</goal>
+            		</goals>
+            		<phase>process-sources</phase>
+            		<configuration>
+              			<roots>
+			            	<root>src/main/java</root>
+			            	<root>src/test</root>
+              			</roots>
+            		</configuration>
+          		</execution>
+          		<execution>
+          			<id>add-third-party</id>
+          			<goals>
+              			<goal>add-third-party</goal>
+            		</goals>
+            		<configuration>
+                		<licenseMerges>
+          					<licenseMerge>The Apache Software License, Version 2.0|Apache License, Version 2.0|Apache Public License 2.0</licenseMerge>
+                		</licenseMerges>
+              		</configuration>
+				</execution>
+        	</executions>
+      	</plugin>
+     
+    
+      
+    </plugins>
+
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.5.0</version>
+          <configuration>
+            <cleanupDaemonThreads>false</cleanupDaemonThreads>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
 
   <dependencies>
     <dependency>
