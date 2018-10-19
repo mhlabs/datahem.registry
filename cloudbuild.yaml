@@ -10,6 +10,6 @@ steps:
 #  args: [java -jar target/registry-0.7.5.jar.jar']
 #  args: ['package', 'exec:java', '-Dexec.mainClass="org.datahem.registry.RegistryLoader"']
 - name: 'gcr.io/cloud-builders/mvn'
-  args: ['exec:java -Dexec.mainClass="org.datahem.registry.RegistryLoader"']'
+  args: ['exec:java -Dexec.mainClass="org.datahem.registry.RegistryLoader"']
 #- name: 'gcr.io/cloud-builders/docker'
 #  args: ["ls"]
