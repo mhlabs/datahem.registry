@@ -1,7 +1,7 @@
 {
 	"type":"record", 
 	"namespace":"foo", 
-	"name":"Man", 
+	"name":"Person", 
 	"fields":[ 
 		{ "name":"name", "type":"string" }, 
 		{ "name":"age", "type":"int" }, 
