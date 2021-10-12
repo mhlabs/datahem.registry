@@ -57,17 +57,17 @@ public class HelloHttp implements HttpFunction {
             .schemaId(SchemaId.builder()
                 .schemaName(subject)
                 .registryName("PocSchemaRegistry")
-                //.schemaArn("arn:aws:glue:eu-west-1:751354400372:schema/PocSchemaRegistry/TestSchema")
                 .build()
             ).build());
-            logger.info(gsr.toString());
-            GetSchemaVersionResponse gsvr = gc.getSchemaVersion(GetSchemaVersionRequest.builder()
-            .schemaId(SchemaId.builder()
-                .schemaArn("arn:aws:glue:eu-west-1:751354400372:schema/PocSchemaRegistry/TestSchema")
-                .build()
-            )
-            .schemaVersionNumber(svn)
-            .build());
+        logger.info(gsr.toString());
+        GetSchemaVersionResponse gsvr = gc.getSchemaVersion(GetSchemaVersionRequest.builder()
+          .schemaId(SchemaId.builder()
+            .schemaName(subject)
+            .registryName("PocSchemaRegistry")
+              .build()
+          )
+          .schemaVersionNumber(svn)
+          .build());
         logger.info(gsvr.toString());
         name = gsvr.schemaDefinition();
       }
