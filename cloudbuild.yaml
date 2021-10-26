@@ -1,0 +1,23 @@
+# gcloud builds submit .
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  args:
+  - gcloud
+  - beta
+  - functions
+  - deploy
+  - subjectVersionFn
+  - --region=$_GOOGLE_REGION
+  - --source=.
+  - --trigger-http
+  - --runtime=java11
+  - --entry-point=org.datahem.registry.SubjectVersion
+  - --memory=512MB
+  - --set-env-vars=AWS_REGION=$_AWS_REGION
+  - --set-secrets=AWS_SECRET_ACCESS_KEY=projects/${PROJECT_NUMBER}/secrets/${_AWS_SECRET_ACCESS_KEY},AWS_ACCESS_KEY_ID=projects/${PROJECT_NUMBER}/secrets/${_AWS_ACCESS_KEY_ID}
+tags: ['aws-schema-adapter']
+substitutions:
+  _GOOGLE_REGION: 'europe-west1'
+  _AWS_REGION: 'eu-west-1'
+  _AWS_SECRET_ACCESS_KEY: 'gcp-aws-schema-secret-key:latest'
+  _AWS_ACCESS_KEY_ID: 'gcp-aws-schema-key-id:latest'

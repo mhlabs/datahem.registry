@@ -114,7 +114,7 @@
         <artifactId>function-maven-plugin</artifactId>
         <version>0.9.8</version>
         <configuration>
-          <functionTarget>org.datahem.registry.HelloHttp</functionTarget>
+          <functionTarget>org.datahem.registry.SubjectVersion</functionTarget>
           <port>8081</port>
         </configuration>
       </plugin>
